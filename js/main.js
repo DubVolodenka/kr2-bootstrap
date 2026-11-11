@@ -28,3 +28,13 @@ if(toTop){
   const skip=document.querySelector('.skip');if(skip){skip.focus({preventScroll:true});skip.blur()}
  });
 }
+// Glossary search
+const gs=document.getElementById('g-search');
+if(gs){
+ const items=[...document.querySelectorAll('.gl-item')],groups=[...document.querySelectorAll('.gl-group')],ge=document.getElementById('g-empty');
+ const norm=s=>s.toLowerCase().replace(/ё/g,'е');
+ gs.addEventListener('input',()=>{const q=norm(gs.value.trim());let n=0;
+  items.forEach(i=>{const ok=!q||norm(i.textContent).includes(q);i.hidden=!ok;if(ok)n++});
+  groups.forEach(g=>g.hidden=!g.querySelector('.gl-item:not([hidden])'));
+  ge.style.display=n?'none':'block'});
+}
